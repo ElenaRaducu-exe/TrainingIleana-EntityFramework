@@ -46,7 +46,8 @@ namespace BlazorApp_EFCore_CodeFirstStrategy.Models
             {
                 AuthorId = author.Id,
                 AuthorName = author.FullName, 
-                NumberBooks = author.Books.Count()
+                NumberBooks = author.Books.Count(), 
+                BookNames = author.Books.Select(book => book.Title).ToList()
             }).ToListAsync();
         }
     }

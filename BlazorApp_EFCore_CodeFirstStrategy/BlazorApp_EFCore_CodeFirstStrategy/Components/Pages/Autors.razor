@@ -11,6 +11,7 @@
             <th>ID</th>
             <th>FullName</th>
             <th>Number Books</th>
+            <th>Book Names</th>
         </tr>
     </thead>
 
@@ -21,6 +22,13 @@
                 <th>@autor.AuthorId</th>
                 <th>@autor.AuthorName</th>
                 <th>@autor.NumberBooks</th>
+                    @if(autor.BookNames.Count > 0)
+                    {
+                        <th>@string.Join(", ", autor.BookNames)</th>
+                    }else
+                    {
+                    <th>Nu exista carti</th>
+                    }
             </tr>
         }
     </tbody>
