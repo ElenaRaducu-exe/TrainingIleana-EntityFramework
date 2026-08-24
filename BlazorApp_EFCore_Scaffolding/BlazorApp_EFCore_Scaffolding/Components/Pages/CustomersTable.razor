@@ -1,0 +1,147 @@
+﻿@page "/customers-table"
+@page "/customers-table/{_selectedCustomerUpdate:int}"
+
+@using BlazorApp_EFCore_Scaffolding.Data
+@using BlazorApp_EFCore_Scaffolding.Models
+
+<h1>Customers Table</h1>
+
+<div>
+    <label>Search State</label>
+    <InputText @bind-value="_filterState" @onkeyup="@ApplyFilterOnState" />
+</div>
+
+<table>
+    <thead>
+        <tr>
+            <th>CustomerId</th>
+            <th>FullName</th>
+            <th>Customer Contact Details</th>
+            <th>Adress</th>
+            <th>Update customer details</th>
+            <th>Delete customer details</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var customer in customers)
+        {
+            @if(customer.CustomerId == _selectedCustomerUpdate)
+            {
+                <tr style="background-color: #cfe2cf ">
+                    <td>@customer.CustomerId</td>
+                    <td>@customer.FullName</td>
+                    <td>@CreateCustomerContactDetails(customer)</td>
+                    <td>@CreateCustomerAddress(customer)</td>
+                    <td>
+                        <button @onclick="(() => NavigateUpdateCustomerForm(customer.CustomerId))">Update</button>
+                    </td>
+                    <td>
+                        <button @onclick="(() => DeleteCustomer(customer))">Delete</button>
+                    </td>
+                </tr>
+            }
+            else
+            {
+                <tr>
+                    <td>@customer.CustomerId</td>
+                    <td>@customer.FullName</td>
+                    <td>@CreateCustomerContactDetails(customer)</td>
+                    <td>@CreateCustomerAddress(customer)</td>
+                    <td>
+                        <button @onclick="(() => NavigateUpdateCustomerForm(customer.CustomerId))">Update</button>
+                    </td>
+                    <td>
+                        <button @onclick="(() => DeleteCustomer(customer))">Delete</button>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+@code {
+    [Inject]
+    private TrainingIleanaRContext _dbContext { get; set; }
+
+    [Inject]
+    private NavigationManager _navigation { get; set; }
+
+    private List<Customer1> customers = new();
+
+    private string _filterState = string.Empty;
+
+    [Parameter]
+    public int? _selectedCustomerUpdate { get; set; } = null;
+
+    private async Task LoadData()
+    {
+        customers = await _dbContext.Customers1.ToListAsync();
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadData();
+    }
+
+    private async Task HandleStateChanged()
+    {
+        await LoadData();
+        StateHasChanged(); 
+    }
+
+    private string CreateCustomerContactDetails(Customer1 customer)
+    {
+        String result = string.Empty;
+
+        if(customer.Phone != null)
+        {
+            result += customer.Phone + " | ";
+        }
+        else
+        {
+            result += "Inexisting Phone number | ";
+        }
+        result += customer.Email;
+
+        return result;
+    }
+
+    private string CreateCustomerAddress(Customer1 customer)
+    {
+        String result = string.Empty;
+
+        result = customer.Street + " | " + customer.City + " | " + customer.State + " | " + customer.ZipCode; 
+
+        return result;
+    }
+
+    private void NavigateUpdateCustomerForm(int id)
+    {
+        _navigation.NavigateTo($"/updateCustomer/{id}");
+    }
+
+    private void DeleteCustomer(Customer1 customer)
+    {
+        _dbContext.Customers1.Remove(customer);
+        _dbContext.SaveChanges();
+
+        customers.Remove(customer); 
+    }
+
+    private async Task ApplyFilterOnState(KeyboardEventArgs key)
+    {
+        if (key.Key == "Enter")
+        {
+            if (!string.IsNullOrWhiteSpace(_filterState) || !string.IsNullOrEmpty(_filterState))
+            {
+                var filteredCustomers = _dbContext.Customers1.Where(c => c.State == _filterState);
+                customers = filteredCustomers.ToList();
+            }
+            else
+            {
+                await HandleStateChanged(); 
+            }
+        }
+    }
+}

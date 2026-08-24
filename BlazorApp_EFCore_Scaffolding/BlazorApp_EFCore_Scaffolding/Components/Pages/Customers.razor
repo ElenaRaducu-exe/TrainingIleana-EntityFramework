@@ -1,0 +1,104 @@
+﻿@page "/customers"
+
+@using BlazorApp_EFCore_Scaffolding.Data 
+@using BlazorApp_EFCore_Scaffolding.Models
+
+@using Microsoft.EntityFrameworkCore
+
+<h3>Customers</h3>
+
+<button @onclick="@ShowNYCustomers">Show the customers in the NY State</button>
+<button @onclick="@ShowCACustomers">Show the customers in the CA State</button>
+<button @onclick="@NavigateFormAddCustomer">Add new customer</button>
+
+@if (show == true)
+{
+    <p>The number of the customers: @numberCustomerResult</p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Customer Id</th>
+                <th>FullName</th>
+                <th>Phone</th>
+                <th>Email</th>
+                <th>State</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var customer in customersResult)
+            {
+                <tr>
+                    <td>@customer.CustomerId</td>
+                    <td>@customer.FullName</td>
+
+                    @if (@customer.Phone != null)
+                    {
+                        <td>@customer.Phone</td>
+                    }
+                    else
+                    {
+                        <td>-</td>
+                    }
+
+                    <td>@customer.Email</td>
+                    <td>@customer.State</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    [Inject]
+    private TrainingIleanaRContext _dbContext { get; set; }
+
+    [Inject]
+    private NavigationManager _navigation { get; set; }
+
+    private List<Customer1> customers = new();
+
+    private List<Customer1> customersResult = new();
+    private int numberCustomerResult = 0; 
+    private bool show = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        customers = await _dbContext.Customers1.ToListAsync();
+    }
+
+    private void ShowNYCustomers()
+    {
+        // LINQ - Query Syntax
+        var myLinqQuery = from Customer1 in customers
+                          where Customer1.State == "NY"
+                          select Customer1;
+
+        foreach (var customer in myLinqQuery)
+        {
+            customersResult.Add(customer);
+            numberCustomerResult++;
+        }
+
+        show = true;
+
+        StateHasChanged(); 
+    }
+
+    private void ShowCACustomers()
+    {
+        // LINQ - Method Syntax
+        customersResult = customers.Where(p => p.State == "CA").ToList();
+        numberCustomerResult = customersResult.Count();
+
+        show = true;
+
+        StateHasChanged(); 
+    }
+
+    private void NavigateFormAddCustomer()
+    {
+        _navigation.NavigateTo("/addCustomerForm"); 
+    }
+}

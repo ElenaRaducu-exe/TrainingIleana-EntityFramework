@@ -1,0 +1,89 @@
+﻿@page "/updateCustomer/{CustomerId:int}"
+
+@using BlazorApp_EFCore_Scaffolding.Data
+@using BlazorApp_EFCore_Scaffolding.Models
+
+<h3>FormUpdateCustomer</h3>
+
+@if (customer == null)
+{
+    <p>Loading...</p>
+}
+else
+{
+    <EditForm Model="@customer">
+        <DataAnnotationsValidator />  
+
+        <div>
+            <label>FirstName:</label>
+            <InputText @bind-value="customer.FirstName" />
+        </div>
+
+        <div>
+            <label>LastName:</label>
+            <InputText @bind-value="customer.LastName" />
+        </div>
+
+        <div>
+            <label>Phone:</label>
+            <InputText @bind-value="customer.Phone"/>
+        </div>
+
+        <div>
+            <label>Email:</label>
+            <InputText @bind-value="customer.Email" />
+        </div>
+
+        <div>
+            <label>Street:</label>
+            <InputText @bind-value="customer.Street" />
+        </div>
+
+        <div>
+            <label>City:</label>
+            <InputText @bind-value="customer.City" />
+        </div>
+
+        <div>
+            <label>State:</label>
+            <InputText @bind-value="customer.State" />
+        </div>
+
+        <div>
+            <label>ZipCode:</label>
+            <InputText @bind-value="customer.ZipCode" />
+        </div>
+
+        <br />
+        <button @onclick="UpdateCustomerDetails">Update customer</button>
+        <br />
+
+    </EditForm>
+}
+
+
+@code {
+    public Customer1 customer { get; set; }
+
+    [Inject]
+    private TrainingIleanaRContext _dbContext { get; set; }
+
+    [Parameter]
+    public int CustomerId { get; set; }
+
+    [Inject]
+    private NavigationManager _navigation { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        customer = await _dbContext.Customers1.FirstOrDefaultAsync(c => c.CustomerId == CustomerId); 
+    }
+
+    private async Task UpdateCustomerDetails()
+    {
+        _dbContext.SaveChanges();
+
+        await Task.Delay(3000); 
+        _navigation.NavigateTo($"/customers-table/{customer.CustomerId}");
+    }
+}

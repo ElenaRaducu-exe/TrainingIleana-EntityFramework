@@ -1,0 +1,128 @@
+﻿@page "/addCustomerForm"
+
+@using BlazorApp_EFCore_Scaffolding.Data
+@using BlazorApp_EFCore_Scaffolding.Models
+
+<p>Last customer: @lastCustomer.CustomerId - @lastCustomer.FullName</p>
+
+<h3>FormAddCustomer</h3>
+
+<EditForm Model="@newCustomer">
+    <DataAnnotationsValidator />  
+
+    <div>
+        <label>FirstName:</label>
+        <InputText @bind-value="newCustomer.FirstName" />
+        <ValidationMessage For="@(() => newCustomer.FirstName)" />
+    </div>
+
+    <div>
+        <label>LastName:</label>
+        <InputText @bind-value="newCustomer.LastName" />
+        <ValidationMessage For="@(() => newCustomer.LastName)" />
+    </div>
+
+    <div>
+        <label>Phone:</label>
+        <InputText @bind-value="newCustomer.Phone" />
+        <ValidationMessage For="@(() => newCustomer.Phone)" />
+    </div>
+
+    <div>
+        <label>Email:</label>
+        <InputText @bind-value="newCustomer.Email" />
+        <ValidationMessage For="@(() => newCustomer.Email)" />
+    </div>
+
+    <div>
+        <label>Street:</label>
+        <InputText @bind-value="newCustomer.Street" />
+        <ValidationMessage For="@(() => newCustomer.Street)" />
+    </div>
+
+    <div>
+        <label>City:</label>
+        <InputText @bind-value="newCustomer.City" />
+        <ValidationMessage For="@(() => newCustomer.City)" />
+    </div>
+
+    <div>
+        <label>State:</label>
+        <InputText @bind-value="newCustomer.State" />
+        <ValidationMessage For="@(() => newCustomer.State)" />
+    </div>
+
+    <div>
+        <label>ZipCode:</label>
+        <InputText @bind-value="newCustomer.ZipCode" />
+        <ValidationMessage For="@(() => newCustomer.ZipCode)" />
+    </div>
+
+    <br />
+    <button @onclick="AddCustomer">Add new customer</button>
+    <br />
+
+</EditForm>
+
+@if(submitted == true)
+{
+    <div style="background-color: #8fbc8f ">
+        <p>CustomerID: @newCustomer.CustomerId</p>
+        <p>First name: @newCustomer.FirstName</p>
+        <p>Last name: @newCustomer.LastName</p>
+        <p>Phone: @newCustomer.Phone</p>
+        <p>Email: @newCustomer.Email</p>
+        <p>Street: @newCustomer.Street</p>
+        <p>City: @newCustomer.City</p>
+        <p>State: @newCustomer.State</p>
+        <p>ZipCode: @newCustomer.ZipCode</p>
+        <p>FullName: @newCustomer.FullName</p>
+
+        <p>Redirecting to the customers page...</p>
+    </div>
+}
+
+@code {
+    [Inject]
+    private TrainingIleanaRContext _dbContext { get; set; }
+
+    [Inject]
+    private NavigationManager _navigation { get; set; }
+
+    private Customer1 newCustomer = new();
+    private Customer1 lastCustomer = new();
+    private bool submitted = false; 
+
+    private void LoadData()
+    {
+        lastCustomer = _dbContext.Customers1.OrderByDescending(c => c.CustomerId).FirstOrDefault();
+    }
+
+    protected override void OnInitialized()
+    {
+        LoadData(); 
+    }
+
+    private void HandleStateChanged()
+    {
+        LoadData();
+        StateHasChanged(); 
+    }
+
+    private async Task AddCustomer()
+    {
+        newCustomer.FullName = newCustomer.FirstName + " " + newCustomer.LastName;
+
+        if (newCustomer != null)
+        {
+            _dbContext.Customers1.Add(newCustomer);
+            _dbContext.SaveChanges(); 
+            submitted = true;
+        }
+
+        HandleStateChanged();
+
+        await Task.Delay(3000);
+        _navigation.NavigateTo("/customers");
+    }
+}
