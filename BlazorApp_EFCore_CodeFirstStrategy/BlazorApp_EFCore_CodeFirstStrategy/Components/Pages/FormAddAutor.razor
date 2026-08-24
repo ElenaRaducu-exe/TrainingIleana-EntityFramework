@@ -1,0 +1,41 @@
+﻿@page "/formAddAutor"
+
+@using BlazorApp_EFCore_CodeFirstStrategy.Models
+@using BlazorApp_EFCore_CodeFirstStrategy.Data
+
+<h3>FormAddAutor</h3>
+
+<EditForm Model="@_newAutor"> 
+
+    <div>
+        <label>FullName:</label>
+        <InputText @bind-value="_newAutor.FullName" />
+    </div>
+
+    <br />
+    <button @onclick="AddAutor">Add new autor</button>
+    <br />
+
+</EditForm>
+
+@code {
+    [Inject]
+    private AppDbContext  _dbContext { get; set; }
+
+    [Inject]
+    private NavigationManager _navigation { get; set; }
+
+    private Autor _newAutor = new(); 
+
+    private async Task AddAutor()
+    {
+        if (_newAutor != null)
+        {
+            _dbContext.Autors.Add(_newAutor);
+            _dbContext.SaveChanges(); 
+        }
+
+        await Task.Delay(2000);
+        _navigation.NavigateTo("/autors");
+    }
+}

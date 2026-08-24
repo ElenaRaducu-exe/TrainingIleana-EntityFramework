@@ -1,0 +1,56 @@
+﻿@page "/books"
+
+@using BlazorApp_EFCore_CodeFirstStrategy.Data
+@using BlazorApp_EFCore_CodeFirstStrategy.Models
+
+<h3>Books</h3>
+
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Year</th>
+            <th>NumberPages</th>
+            <th>Autor</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var book in _books)
+        {
+            <tr>
+                <th>@book.Id</th>
+                <th>@book.Title</th>
+                <th>@book.Year</th>
+                <th>@book.NumberPages</th>
+                <th>@_autorService.GetAutorByID(book.AutorId.Value).FullName</th>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<button @onclick="NavigateToForm">Add Book</button>
+
+@code {
+    [Inject]
+    private BookService _bookService { get; set; }
+
+    [Inject]
+    private AutorService _autorService { get; set; }
+
+    [Inject]
+    private NavigationManager _navigation { get; set; }
+
+    private List<Book> _books = new(); 
+
+    protected override async Task OnInitializedAsync()
+    {
+        _books = await _bookService.GetBooks(); 
+    }
+
+    private void NavigateToForm()
+    {
+        _navigation.NavigateTo("/formAddBook"); 
+    }
+}

@@ -1,0 +1,51 @@
+﻿@page "/autors"
+
+@using BlazorApp_EFCore_CodeFirstStrategy.Models
+@using BlazorApp_EFCore_CodeFirstStrategy.Data
+
+<h3>Autors</h3>
+
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>FullName</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var autor in _autors)
+        {
+            <tr>
+                <th>@autor.Id</th>
+                <th>@autor.FullName</th>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<br />
+<br />
+<br />
+
+<button @onclick="NavigateToForm">Add Autor</button>
+
+@code {
+    [Inject]
+    private NavigationManager _navigation { get; set; }
+
+    [Inject]
+    private AutorService _autorService { get; set; }
+
+    private List<Autor> _autors = new(); 
+
+    protected override async Task OnInitializedAsync()
+    {
+        _autors = await _autorService.GetAutors(); 
+    }
+
+    private void NavigateToForm()
+    {
+        _navigation.NavigateTo("/formAddAutor"); 
+    }
+}

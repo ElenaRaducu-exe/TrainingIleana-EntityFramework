@@ -1,0 +1,85 @@
+﻿@page "/formAddBook"
+
+@using BlazorApp_EFCore_CodeFirstStrategy.Models
+@using BlazorApp_EFCore_CodeFirstStrategy.Data
+
+<h3>FormAddBook</h3>
+
+@if (_autors != null)
+{
+    <EditForm Model="@_newBook"> 
+
+        <div>
+            <label>Title:</label>
+            <InputText @bind-value="_newBook.Title" />
+        </div>
+
+        <div>
+            <label>Year:</label>
+            <InputNumber  @bind-value="_newBook.Year" />
+        </div>
+
+        <div>
+            <label>NumberPages:</label>
+            <InputNumber  @bind-value="_newBook.NumberPages" />
+        </div>
+
+        <div>
+            <label>Autor:</label>
+            <InputSelect @bind-value="_autorName" >
+                <option> -- Select an autor -- </option>
+                @foreach (var autor in _autors)
+                {
+                    <option value="@autor.FullName">@autor.FullName</option>
+                }
+            </InputSelect>
+        </div>
+
+        <br />
+        <button @onclick="AddBook">Add new book</button>
+        <br />
+
+    </EditForm>
+}
+
+@code {
+    [Inject]
+    private AppDbContext _dbContext { get; set; }
+
+    [Inject]
+    private NavigationManager _navigation { get; set; }
+
+    [Inject]
+    private AutorService _autorService { get; set; }
+
+    private Book _newBook { get; set; } = new(); 
+    private string? _autorName { get; set; }
+    private List<Autor> _autors = new(); 
+
+    protected override async Task OnInitializedAsync()
+    {
+        _autors = await _autorService.GetAutors(); 
+    }
+
+    private async Task AddBook()
+    {
+        if(_autorName != null)
+        {
+            var autor = _autorService.GetAutorByName(_autorName); 
+
+            if (autor != null)
+            {
+                _newBook.AutorId = autor.Id; 
+            }
+        }
+
+        if (_newBook != null)
+        {
+            _dbContext.Books.Add(_newBook);
+            _dbContext.SaveChanges(); 
+        }
+
+        await Task.Delay(2000);
+        _navigation.NavigateTo("/books");
+    }
+}
