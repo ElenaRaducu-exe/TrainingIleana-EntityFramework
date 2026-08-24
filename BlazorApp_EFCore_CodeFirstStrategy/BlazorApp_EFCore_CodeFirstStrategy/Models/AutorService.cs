@@ -39,5 +39,15 @@ namespace BlazorApp_EFCore_CodeFirstStrategy.Models
         {
             return AutorsList.FirstOrDefault(a => a.Id == searchID); 
         }
+
+        public async Task<List<AuthorDTO>> GetAuthorDTOs()
+        {
+            return await _dbContext.Autors.Select(author => new AuthorDTO
+            {
+                AuthorId = author.Id,
+                AuthorName = author.FullName, 
+                NumberBooks = author.Books.Count()
+            }).ToListAsync();
+        }
     }
 }

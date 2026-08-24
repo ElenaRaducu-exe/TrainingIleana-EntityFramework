@@ -10,15 +10,17 @@
         <tr>
             <th>ID</th>
             <th>FullName</th>
+            <th>Number Books</th>
         </tr>
     </thead>
 
     <tbody>
-        @foreach (var autor in _autors)
+        @foreach (var autor in _autorsDTO)
         {
             <tr>
-                <th>@autor.Id</th>
-                <th>@autor.FullName</th>
+                <th>@autor.AuthorId</th>
+                <th>@autor.AuthorName</th>
+                <th>@autor.NumberBooks</th>
             </tr>
         }
     </tbody>
@@ -37,11 +39,13 @@
     [Inject]
     private AutorService _autorService { get; set; }
 
-    private List<Autor> _autors = new(); 
+    //private List<Autor> _autors = new(); 
+    private List<AuthorDTO> _autorsDTO = new(); 
 
     protected override async Task OnInitializedAsync()
     {
-        _autors = await _autorService.GetAutors(); 
+        //_autors = await _autorService.GetAutors(); 
+        _autorsDTO = await _autorService.GetAuthorDTOs(); 
     }
 
     private void NavigateToForm()
