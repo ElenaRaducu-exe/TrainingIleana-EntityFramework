@@ -18,5 +18,10 @@ namespace BlazorApp_EFCore_CodeFirstStrategy.Models
             BooksList = await DbContext.Books.ToListAsync();
             return BooksList;
         }
+
+        public async Task<Book?> GetBookByIdAsync(int searchId)
+        {
+            return await DbContext.Books.FirstOrDefaultAsync(b => b.Id == searchId);
+        }
     }
 }

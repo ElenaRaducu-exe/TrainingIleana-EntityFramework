@@ -23,9 +23,16 @@ namespace BlazorApp_EFCore_CodeFirstStrategy.Models
             return AutorsList; 
         }
 
+        // in memory data filter
         public Autor? GetAutorByName(string name)
         {
             return AutorsList.FirstOrDefault(a => a.FullName == name); 
+        }
+
+        // database level data filter 
+        public async Task<Autor?> GetAutorByNameAsync(string name)
+        {
+            return await _dbContext.Autors.FirstOrDefaultAsync(a => a.FullName == name);
         }
 
         public Autor? GetAutorByID(int searchID)

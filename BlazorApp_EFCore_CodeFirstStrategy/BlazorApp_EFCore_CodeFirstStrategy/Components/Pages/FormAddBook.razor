@@ -65,7 +65,8 @@
     {
         if(_autorName != null)
         {
-            var autor = _autorService.GetAutorByName(_autorName); 
+            //var autor = _autorService.GetAutorByName(_autorName); 
+            var autor = await _autorService.GetAutorByNameAsync(_autorName); 
 
             if (autor != null)
             {
