@@ -1,22 +1,50 @@
 ﻿@page "/formAddAutor"
+@page "/formAddAutor/{AuthorId:int}"
 
 @using BlazorApp_EFCore_CodeFirstStrategy.Models
 @using BlazorApp_EFCore_CodeFirstStrategy.Data
 
 <h3>FormAddAutor</h3>
 
-<EditForm Model="@_newAutor"> 
+@if (AuthorId == null)
+{
+    <EditForm Model="@_newAutor">
 
-    <div>
-        <label>FullName:</label>
-        <InputText @bind-value="_newAutor.FullName" />
-    </div>
+        <div>
+            <label>FullName:</label>
+            <InputText @bind-value="_newAutor.FullName" />
+        </div>
 
-    <br />
-    <button @onclick="AddAutor">Add new autor</button>
-    <br />
+        <br />
+        <button @onclick="AddAutor">Add new autor</button>
+        <br />
 
-</EditForm>
+    </EditForm>
+}
+else if (_newAutor != null)
+{
+    <EditForm Model="@_newAutor">
+
+        <div>
+            <label>ID:</label>
+            <InputNumber @bind-value="_newAutor.Id" readonly="true" />
+        </div>
+
+        <div>
+            <label>FullName:</label>
+            <InputText @bind-value="_newAutor.FullName" />
+        </div>
+
+        <br />
+        <button @onclick="UpdateAutor">Update autor</button>
+        <br />
+
+    </EditForm>
+}
+else
+{
+    <p>Loading...</p>
+}
 
 @code {
     [Inject]
@@ -25,7 +53,21 @@
     [Inject]
     private NavigationManager _navigation { get; set; }
 
-    private Autor _newAutor = new(); 
+    [Inject]
+    private AutorService _autorService { get; set; }
+
+    [Parameter]
+    public int? AuthorId { get; set; }
+
+    private Autor? _newAutor = new(); 
+
+    protected override async Task OnInitializedAsync()
+    {
+        if(AuthorId != null)
+        {
+            _newAutor = await _autorService.GetAutorByID(AuthorId.Value); 
+        }
+    }
 
     private async Task AddAutor()
     {
@@ -37,5 +79,13 @@
 
         await Task.Delay(2000);
         _navigation.NavigateTo("/autors");
+    }
+
+    private async Task UpdateAutor()
+    {
+        await _autorService.UpdateAutor();
+
+        await Task.Delay(2000);
+        _navigation.NavigateTo("/autors"); 
     }
 }

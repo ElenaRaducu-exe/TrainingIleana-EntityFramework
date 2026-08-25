@@ -13,6 +13,7 @@
             <th class="th-column">Number Books</th>
             <th class="th-column">Book Names</th>
             <th class="th-column">Delete Autor</th>
+            <th class="th-column">Update Autor</th>
         </tr>
     </thead>
 
@@ -23,6 +24,7 @@
                 <th class="th-column">@autor.AuthorId</th>
                 <th class="th-column">@autor.AuthorName</th>
                 <th class="th-column">@autor.NumberBooks</th>
+
                     @if(autor.BookNames.Count > 0)
                     {
                     <th class="th-column">@string.Join(", ", autor.BookNames)</th>
@@ -30,8 +32,13 @@
                     {
                     <th class="th-column">Nu exista carti</th>
                     }
+
                 <th class="th-column">
                     <button @onclick="() => DeleteAutor(autor)"> DELETE </button>
+                </th>
+
+                <th class="th-column">
+                    <button @onclick="() => UpdateAutor(autor)"> UPDATE </button>
                 </th>
             </tr>
         }
@@ -69,5 +76,10 @@
     {
         await _autorService.RemoveAutor(author.AuthorId);
         _autorsDTO.Remove(author); 
+    }
+
+    private async Task UpdateAutor(AuthorDTO author)
+    {
+        _navigation.NavigateTo($"/formAddAutor/{author.AuthorId}");
     }
 }

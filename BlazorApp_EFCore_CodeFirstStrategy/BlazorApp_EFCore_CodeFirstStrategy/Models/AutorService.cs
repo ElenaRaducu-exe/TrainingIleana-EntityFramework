@@ -35,9 +35,9 @@ namespace BlazorApp_EFCore_CodeFirstStrategy.Models
             return await _dbContext.Autors.FirstOrDefaultAsync(a => a.FullName == name);
         }
 
-        public Autor? GetAutorByID(int searchID)
+        public async Task<Autor> GetAutorByID(int searchID)
         {
-            return AutorsList.FirstOrDefault(a => a.Id == searchID); 
+            return _dbContext.Autors.FirstOrDefault(a => a.Id == searchID);
         }
 
         public async Task<List<AuthorDTO>> GetAuthorDTOs()
@@ -80,6 +80,11 @@ namespace BlazorApp_EFCore_CodeFirstStrategy.Models
                 _dbContext.Autors.Remove(autorToDelete);
                 _dbContext.SaveChanges();
             }
+        }
+
+        public async Task UpdateAutor()
+        {
+            _dbContext.SaveChanges(); 
         }
     }
 }
