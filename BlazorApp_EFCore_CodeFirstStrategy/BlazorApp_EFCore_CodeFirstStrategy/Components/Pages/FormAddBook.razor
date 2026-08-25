@@ -111,7 +111,8 @@
         if (BookId != null)
         {
             _newBook = await _bookService.GetBookByIdAsync(BookId.Value);
-            _autorBook = await _autorService.GetAutorByID(_newBook.AutorId.Value); 
+            _autorBook = await _autorService.GetAutorByID(_newBook.AutorId.Value);
+            _autorName = _autorBook.FullName;
         }
     }
 
