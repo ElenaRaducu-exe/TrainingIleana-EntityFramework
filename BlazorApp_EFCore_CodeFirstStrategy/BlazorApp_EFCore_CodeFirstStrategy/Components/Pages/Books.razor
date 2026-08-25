@@ -13,6 +13,7 @@
             <th class="th-column">Year</th>
             <th class="th-column">NumberPages</th>
             <th class="th-column">Autor</th>
+            <th class="th-column">Delete Book</th>
         </tr>
     </thead>
 
@@ -25,6 +26,9 @@
                 <th class="th-column">@book.Year</th>
                 <th class="th-column">@book.NumberPages</th>
                 <th class="th-column">@book.AutorName</th>
+                <th class="th-column">
+                    <button @onclick="() => DeleteBook(book)"> DELETE </button>
+                </th>
             </tr>
         }
     </tbody>
@@ -52,5 +56,11 @@
     private void NavigateToForm()
     {
         _navigation.NavigateTo("/formAddBook"); 
+    }
+
+    private async Task DeleteBook(BookDTO bookSelected)
+    {
+        await _bookService.RemoveBook(bookSelected.Id);
+        _booksDTO.Remove(bookSelected);
     }
 }

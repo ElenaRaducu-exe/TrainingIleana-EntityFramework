@@ -12,6 +12,7 @@
             <th class="th-column">FullName</th>
             <th class="th-column">Number Books</th>
             <th class="th-column">Book Names</th>
+            <th class="th-column">Delete Autor</th>
         </tr>
     </thead>
 
@@ -29,6 +30,9 @@
                     {
                     <th class="th-column">Nu exista carti</th>
                     }
+                <th class="th-column">
+                    <button @onclick="() => DeleteAutor(autor)"> DELETE </button>
+                </th>
             </tr>
         }
     </tbody>
@@ -59,5 +63,11 @@
     private void NavigateToForm()
     {
         _navigation.NavigateTo("/formAddAutor"); 
+    }
+
+    private async Task DeleteAutor(AuthorDTO author)
+    {
+        await _autorService.RemoveAutor(author.AuthorId);
+        _autorsDTO.Remove(author); 
     }
 }

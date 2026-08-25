@@ -35,5 +35,24 @@ namespace BlazorApp_EFCore_CodeFirstStrategy.Models
                 AutorName = book.autor.FullName
             }).ToListAsync(); 
         }
+
+        public async Task<BookDTO?> GetBookDTOByIdAsync(int searchId)
+        {
+            return await DbContext.Books.Select(book => new BookDTO
+            {
+                Id = book.Id,
+                Title = book.Title,
+                Year = book.Year,
+                NumberPages = book.NumberPages,
+                AutorName = book.autor.FullName
+            }).FirstOrDefaultAsync(b => b.Id == searchId);
+        }
+
+        public async Task RemoveBook(int id)
+        {
+            var bookToDetele = await DbContext.Books.FirstOrDefaultAsync(book => book.Id == id);
+            DbContext.Books.Remove(bookToDetele);
+            DbContext.SaveChanges();
+        }
     }
 }

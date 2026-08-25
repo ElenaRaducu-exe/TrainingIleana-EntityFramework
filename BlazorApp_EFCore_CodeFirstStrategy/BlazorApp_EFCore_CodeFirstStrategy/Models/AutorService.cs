@@ -15,7 +15,7 @@ namespace BlazorApp_EFCore_CodeFirstStrategy.Models
 
         public async Task AutorsInit()
         {
-            AutorsList = await _dbContext.Autors.ToListAsync(); 
+            AutorsList = await _dbContext.Autors.ToListAsync();
         }
         public async Task<List<Autor>> GetAutors()
         {
@@ -49,6 +49,37 @@ namespace BlazorApp_EFCore_CodeFirstStrategy.Models
                 NumberBooks = author.Books.Count(), 
                 BookNames = author.Books.Select(book => book.Title).ToList()
             }).ToListAsync();
+        }
+
+        public async Task RemoveAutor(int id)
+        {
+            var autorToDelete = await _dbContext.Autors.FirstOrDefaultAsync(author => author.Id == id);
+
+            List<Book> booksToDelete = await _dbContext.Books.Select(book => new Book
+            {
+                Id = book.Id,
+                Year = book.Year,
+                NumberPages = book.NumberPages,
+                AutorId = id, 
+                Title = book.Title
+            }).ToListAsync();
+
+            if (booksToDelete.Count() > 0)
+            {
+                foreach(var book in booksToDelete)
+                {
+                    _dbContext.Books.Remove(book);
+                    _dbContext.SaveChanges();
+                }
+
+                _dbContext.Autors.Remove(autorToDelete);
+                _dbContext.SaveChanges();
+            }
+            else if (autorToDelete.Books.Count() == 0)
+            {
+                _dbContext.Autors.Remove(autorToDelete);
+                _dbContext.SaveChanges();
+            }
         }
     }
 }
