@@ -17,14 +17,14 @@
     </thead>
 
     <tbody>
-        @foreach (var book in _books)
+        @foreach (var book in _booksDTO)
         {
             <tr>
                 <th>@book.Id</th>
                 <th>@book.Title</th>
                 <th>@book.Year</th>
                 <th>@book.NumberPages</th>
-                <th>@_autorService.GetAutorByID(book.AutorId.Value).FullName</th>
+                <th>@book.AutorName</th>
             </tr>
         }
     </tbody>
@@ -42,11 +42,11 @@
     [Inject]
     private NavigationManager _navigation { get; set; }
 
-    private List<Book> _books = new(); 
+    private List<BookDTO> _booksDTO = new(); 
 
     protected override async Task OnInitializedAsync()
     {
-        _books = await _bookService.GetBooks(); 
+        _booksDTO = await _bookService.GetBookDTOs();
     }
 
     private void NavigateToForm()
