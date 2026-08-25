@@ -54,5 +54,10 @@ namespace BlazorApp_EFCore_CodeFirstStrategy.Models
             DbContext.Books.Remove(bookToDetele);
             DbContext.SaveChanges();
         }
+
+        public async Task UpdateBook()
+        {
+            DbContext.SaveChanges();
+        }
     }
 }

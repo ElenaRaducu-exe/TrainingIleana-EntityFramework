@@ -1,11 +1,12 @@
 ﻿@page "/formAddBook"
+@page "/formAddBook/{BookId:int}"
 
 @using BlazorApp_EFCore_CodeFirstStrategy.Models
 @using BlazorApp_EFCore_CodeFirstStrategy.Data
 
 <h3>FormAddBook</h3>
 
-@if (_autors != null)
+@if (_autors != null && BookId == null)
 {
     <EditForm Model="@_newBook"> 
 
@@ -40,6 +41,46 @@
         <br />
 
     </EditForm>
+}else if(BookId != null)
+{
+    <EditForm Model="@_newBook">
+
+        <div>
+            <label>Id:</label>
+            <InputNumber @bind-value="_newBook.Id" readonly="true"/>
+        </div>
+
+        <div>
+            <label>Title:</label>
+            <InputText @bind-value="_newBook.Title" />
+        </div>
+
+        <div>
+            <label>Year:</label>
+            <InputNumber @bind-value="_newBook.Year" />
+        </div>
+
+        <div>
+            <label>NumberPages:</label>
+            <InputNumber @bind-value="_newBook.NumberPages" />
+        </div>
+
+        <div>
+            <label>Autor:</label>
+            <InputSelect @bind-value="_autorName">
+                <option> @_autorBook.FullName </option>
+                @foreach (var autor in _autors)
+                {
+                    <option value="@autor.FullName">@autor.FullName</option>
+                }
+            </InputSelect>
+        </div>
+
+        <br />
+        <button @onclick="UpdateBook">Update book</button>
+        <br />
+
+    </EditForm>
 }
 
 @code {
@@ -52,13 +93,26 @@
     [Inject]
     private AutorService _autorService { get; set; }
 
-    private Book _newBook { get; set; } = new(); 
+    [Inject]
+    private BookService _bookService { get; set; }
+
+    [Parameter]
+    public int? BookId { get; set; }
+
+    private Book? _newBook { get; set; } = new(); 
+    private Autor? _autorBook { get; set; } = new(); 
     private string? _autorName { get; set; }
     private List<Autor> _autors = new(); 
 
     protected override async Task OnInitializedAsync()
     {
         _autors = await _autorService.GetAutors(); 
+
+        if (BookId != null)
+        {
+            _newBook = await _bookService.GetBookByIdAsync(BookId.Value);
+            _autorBook = await _autorService.GetAutorByID(_newBook.AutorId.Value); 
+        }
     }
 
     private async Task AddBook()
@@ -82,5 +136,19 @@
 
         await Task.Delay(2000);
         _navigation.NavigateTo("/books");
+    }
+
+    private async Task UpdateBook()
+    {
+        if (_autorName != _autorBook.FullName)
+        {
+            var newAutor = _autorService.GetAutorByName(_autorName);
+            _newBook.AutorId = newAutor.Id;
+        }
+
+        await _bookService.UpdateBook();
+
+        await Task.Delay(2000);
+        _navigation.NavigateTo("/books"); 
     }
 }
