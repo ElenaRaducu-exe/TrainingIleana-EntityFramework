@@ -5,29 +5,29 @@
 
 <h3>Autors</h3>
 
-<table>
+<table class="table">
     <thead>
-        <tr>
-            <th>ID</th>
-            <th>FullName</th>
-            <th>Number Books</th>
-            <th>Book Names</th>
+        <tr class="tr-row">
+            <th class="th-column">ID</th>
+            <th class="th-column">FullName</th>
+            <th class="th-column">Number Books</th>
+            <th class="th-column">Book Names</th>
         </tr>
     </thead>
 
     <tbody>
         @foreach (var autor in _autorsDTO)
         {
-            <tr>
-                <th>@autor.AuthorId</th>
-                <th>@autor.AuthorName</th>
-                <th>@autor.NumberBooks</th>
+            <tr class="tr-row">
+                <th class="th-column">@autor.AuthorId</th>
+                <th class="th-column">@autor.AuthorName</th>
+                <th class="th-column">@autor.NumberBooks</th>
                     @if(autor.BookNames.Count > 0)
                     {
-                        <th>@string.Join(", ", autor.BookNames)</th>
+                    <th class="th-column">@string.Join(", ", autor.BookNames)</th>
                     }else
                     {
-                    <th>Nu exista carti</th>
+                    <th class="th-column">Nu exista carti</th>
                     }
             </tr>
         }

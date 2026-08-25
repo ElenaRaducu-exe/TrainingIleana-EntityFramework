@@ -5,26 +5,26 @@
 
 <h3>Books</h3>
 
-<table>
+<table class="table">
     <thead>
-        <tr>
-            <th>ID</th>
-            <th>Title</th>
-            <th>Year</th>
-            <th>NumberPages</th>
-            <th>Autor</th>
+        <tr class="tr-row">
+            <th class="th-column">ID</th>
+            <th class="th-column">Title</th>
+            <th class="th-column">Year</th>
+            <th class="th-column">NumberPages</th>
+            <th class="th-column">Autor</th>
         </tr>
     </thead>
 
     <tbody>
         @foreach (var book in _booksDTO)
         {
-            <tr>
-                <th>@book.Id</th>
-                <th>@book.Title</th>
-                <th>@book.Year</th>
-                <th>@book.NumberPages</th>
-                <th>@book.AutorName</th>
+            <tr class="tr-row">
+                <th class="th-column">@book.Id</th>
+                <th class ="th-column">@book.Title</th>
+                <th class="th-column">@book.Year</th>
+                <th class="th-column">@book.NumberPages</th>
+                <th class="th-column">@book.AutorName</th>
             </tr>
         }
     </tbody>
