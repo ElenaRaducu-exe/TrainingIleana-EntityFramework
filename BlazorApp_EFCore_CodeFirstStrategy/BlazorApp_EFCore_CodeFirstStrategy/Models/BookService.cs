@@ -1,5 +1,6 @@
 ﻿using BlazorApp_EFCore_CodeFirstStrategy.Data;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Dynamic.Core;
 
 namespace BlazorApp_EFCore_CodeFirstStrategy.Models
 {
@@ -58,6 +59,32 @@ namespace BlazorApp_EFCore_CodeFirstStrategy.Models
         public async Task UpdateBook()
         {
             DbContext.SaveChanges();
+        }
+
+        public async Task<List<BookDTO>> SortBookDTOs(string propertySort, bool direction)
+        {
+            if(direction == true)
+            {
+                return await DbContext.Books.Select(book => new BookDTO
+                {
+                    Id = book.Id,
+                    Title = book.Title,
+                    Year = book.Year,
+                    NumberPages = book.NumberPages,
+                    AutorName = book.autor.FullName
+                }).OrderBy($"{propertySort}").ToListAsync();
+            }
+            else
+            {
+                return await DbContext.Books.Select(book => new BookDTO
+                {
+                    Id = book.Id,
+                    Title = book.Title,
+                    Year = book.Year,
+                    NumberPages = book.NumberPages,
+                    AutorName = book.autor.FullName
+                }).OrderBy($"{propertySort} descending").ToListAsync();
+            }
         }
     }
 }

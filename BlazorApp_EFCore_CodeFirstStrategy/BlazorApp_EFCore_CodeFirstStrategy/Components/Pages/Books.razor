@@ -10,8 +10,14 @@
         <tr class="tr-row">
             <th class="th-column">ID</th>
             <th class="th-column">Title</th>
-            <th class="th-column">Year</th>
-            <th class="th-column">NumberPages</th>
+            <th class="th-column">
+                Year
+                <button @onclick="() => SortBy(nameof(Book.Year))">sort</button>
+            </th>
+            <th class="th-column">
+                NumberPages
+                <button @onclick="() => SortBy(nameof(Book.NumberPages))">sort</button>
+            </th>
             <th class="th-column">Autor</th>
             <th class="th-column">Delete Book</th>
             <th class="th-column">Update Book</th>
@@ -41,14 +47,17 @@
 <button @onclick="NavigateToForm">Add Book</button>
 
 @code {
-        [Inject]
-        private BookService _bookService { get; set; }
+    [Inject]
+    private BookService _bookService { get; set; }
 
-        [Inject]
-        private AutorService _autorService { get; set; }
+    [Inject]
+    private AutorService _autorService { get; set; }
 
-        [Inject]
-        private NavigationManager _navigation { get; set; }
+    [Inject]
+    private NavigationManager _navigation { get; set; }
+
+    private string? currentSortColumn;
+    private bool sortAsc = true; 
 
     private List<BookDTO> _booksDTO = new(); 
 
@@ -71,5 +80,22 @@
     private async Task NavigateToFormUpdateBook(BookDTO bookSelected)
     {
         _navigation.NavigateTo($"/formAddBook/{bookSelected.Id}");
+    }
+
+    private async Task SortBy(string columnName)
+    {
+        if(currentSortColumn == columnName)
+        {
+            sortAsc = !sortAsc;
+        }
+        else
+        {
+            currentSortColumn = columnName;
+            sortAsc = true; 
+        }
+
+        _booksDTO = await _bookService.SortBookDTOs(currentSortColumn, sortAsc);
+
+        StateHasChanged(); 
     }
 }
