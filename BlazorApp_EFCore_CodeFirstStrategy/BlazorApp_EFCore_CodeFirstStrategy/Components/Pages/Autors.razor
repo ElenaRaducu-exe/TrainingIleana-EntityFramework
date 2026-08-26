@@ -14,6 +14,7 @@
             <th class="th-column">Book Names</th>
             <th class="th-column">Delete Autor</th>
             <th class="th-column">Update Autor</th>
+            <th class="th-column">Add Book</th>
         </tr>
     </thead>
 
@@ -39,6 +40,10 @@
 
                 <th class="th-column">
                     <button @onclick="() => UpdateAutor(autor)"> UPDATE </button>
+                </th>
+
+                <th class="th-column">
+                    <button @onclick="() => AddBook(autor)"> ADD BOOK </button>
                 </th>
             </tr>
         }
@@ -81,5 +86,10 @@
     private async Task UpdateAutor(AuthorDTO author)
     {
         _navigation.NavigateTo($"/formAddAutor/{author.AuthorId}");
+    }
+
+    private async Task AddBook(AuthorDTO author)
+    {
+        _navigation.NavigateTo($"/formAddBook/autors/{author.AuthorId}");
     }
 }

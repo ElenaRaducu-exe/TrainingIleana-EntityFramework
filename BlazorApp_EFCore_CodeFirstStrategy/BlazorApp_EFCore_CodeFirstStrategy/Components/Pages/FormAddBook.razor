@@ -1,12 +1,36 @@
 ﻿@page "/formAddBook"
 @page "/formAddBook/{BookId:int}"
+@page "/formAddBook/autors/{AutorId:int}"
 
 @using BlazorApp_EFCore_CodeFirstStrategy.Models
 @using BlazorApp_EFCore_CodeFirstStrategy.Data
 
 <h3>FormAddBook</h3>
 
-@if (_autors != null && BookId == null)
+@if(AutorId != null)
+{
+    <EditForm Model="@_newBook">
+        <div>
+            <label>Title:</label>
+            <InputText @bind-value="_newBook.Title" />
+        </div>
+
+        <div>
+            <label>Year:</label>
+            <InputNumber @bind-value="_newBook.Year" />
+        </div>
+
+        <div>
+            <label>NumberPages:</label>
+            <InputNumber @bind-value="_newBook.NumberPages" />
+        </div>
+
+        <br />
+        <button @onclick="AddBook">Add new book</button>
+        <br />
+
+    </EditForm>
+}else @if (_autors != null && BookId == null)
 {
     <EditForm Model="@_newBook"> 
 
@@ -81,7 +105,7 @@
         <br />
 
     </EditForm>
-}
+} 
 
 @code {
     [Inject]
@@ -98,6 +122,9 @@
 
     [Parameter]
     public int? BookId { get; set; }
+
+    [Parameter]
+    public int? AutorId { get; set; }
 
     private Book? _newBook { get; set; } = new(); 
     private Autor? _autorBook { get; set; } = new(); 
@@ -118,6 +145,11 @@
 
     private async Task AddBook()
     {
+        if (AutorId != null)
+        {
+            _newBook.AutorId = AutorId; 
+        }
+
         if(_autorName != null)
         {
             //var autor = _autorService.GetAutorByName(_autorName); 
