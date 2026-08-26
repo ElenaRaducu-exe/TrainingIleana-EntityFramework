@@ -51,8 +51,10 @@
 
         <div>
             <label>Autor:</label>
+                <InputText @bind-value="_searchTerm" @onkeyup="ApplyFilterOnDropdown" />
             <InputSelect @bind-value="_autorName" >
                 <option> -- Select an autor -- </option>
+                
                 @foreach (var autor in _autors)
                 {
                     <option value="@autor.FullName">@autor.FullName</option>
@@ -130,10 +132,11 @@
     private Autor? _autorBook { get; set; } = new(); 
     private string? _autorName { get; set; }
     private List<Autor> _autors = new(); 
+    private string? _searchTerm { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
-        _autors = await _autorService.GetAutors(); 
+        _autors = await _autorService.GetAutors();
 
         if (BookId != null)
         {
@@ -164,7 +167,7 @@
         if (_newBook != null)
         {
             _dbContext.Books.Add(_newBook);
-            _dbContext.SaveChanges(); 
+             _dbContext.SaveChanges(); 
         }
 
         await Task.Delay(2000);
@@ -183,5 +186,22 @@
 
         await Task.Delay(2000);
         _navigation.NavigateTo("/books"); 
+    }
+
+    private async Task ApplyFilterOnDropdown(KeyboardEventArgs keyPressed)
+    {
+        if(keyPressed.Key == "Enter")
+        {
+            if(_searchTerm != null)
+            {
+                _autors = await _autorService.GetAutorsFiltered(_searchTerm);
+                StateHasChanged();
+            } 
+            else
+            {
+                _autors = await _autorService.GetAutors();
+                StateHasChanged();
+            }
+        }
     }
 }

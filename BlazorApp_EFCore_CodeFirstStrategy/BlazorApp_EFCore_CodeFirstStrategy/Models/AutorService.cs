@@ -86,5 +86,10 @@ namespace BlazorApp_EFCore_CodeFirstStrategy.Models
         {
             _dbContext.SaveChanges(); 
         }
+
+        public async Task<List<Autor>> GetAutorsFiltered(string filterTerm)
+        {
+            return await _dbContext.Autors.Where(a => a.FullName.Contains(filterTerm)).ToListAsync(); 
+        }
     }
 }
