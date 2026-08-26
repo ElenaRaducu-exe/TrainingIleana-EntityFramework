@@ -24,13 +24,12 @@
             <label>NumberPages:</label>
             <InputNumber @bind-value="_newBook.NumberPages" />
         </div>
-
-        <br />
-        <button @onclick="AddBook">Add new book</button>
-        <br />
-
     </EditForm>
-}else @if (_autors != null && BookId == null)
+    <br />
+    <button @onclick="AddBook">Add new book</button>
+    <br />
+}
+else @if (_autors != null && BookId == null)
 {
     <EditForm Model="@_newBook"> 
 
@@ -62,11 +61,11 @@
             </InputSelect>
         </div>
 
+        </EditForm>
+
         <br />
         <button @onclick="AddBook">Add new book</button>
         <br />
-
-    </EditForm>
 }else if(BookId != null)
 {
     <EditForm Model="@_newBook">
@@ -101,12 +100,10 @@
                 }
             </InputSelect>
         </div>
-
+    </EditForm>
         <br />
         <button @onclick="UpdateBook">Update book</button>
         <br />
-
-    </EditForm>
 } 
 
 @code {
@@ -195,12 +192,12 @@
             if(_searchTerm != null)
             {
                 _autors = await _autorService.GetAutorsFiltered(_searchTerm);
-                StateHasChanged();
+                await InvokeAsync(StateHasChanged);
             } 
             else
             {
                 _autors = await _autorService.GetAutors();
-                StateHasChanged();
+                await InvokeAsync(StateHasChanged);
             }
         }
     }
