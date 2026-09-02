@@ -28,11 +28,11 @@ namespace WebApplication1
         public short model_year { get; set; }
         public decimal list_price { get; set; }
     
-        public virtual brand brand { get; set; }
         public virtual category1 category { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<order_items> order_items { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<stock> stocks { get; set; }
+        public virtual brand brand { get; set; }
     }
 }

@@ -1,9 +1,20 @@
-﻿@{
+﻿@model IEnumerable<WebApplication1.Customer>
+
+@{
     ViewBag.Title = "Marketing Customers - CRUD Operations";
 }
+
 <main aria-labelledby="title">
     <h2 id="title">@ViewBag.Title.</h2>
     <h3>@ViewBag.Message</h3>
 
-    <p>Use this area to provide additional information.</p>
+    <p>
+        @Html.ActionLink("Read Customers", "Read", "Customer")
+    </p>
+
+    <button type="button"
+            onclick="location.href='@Url.Action("Read", "Customer")'">
+        Read Customers
+    </button>
+
 </main>
