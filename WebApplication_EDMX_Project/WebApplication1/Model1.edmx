@@ -336,6 +336,7 @@ warning 6002: The table/view 'TrainingIleanaR.dbo.persons' does not have a prima
           <Property Name="state" Type="varchar" MaxLength="25" />
           <Property Name="zip_code" Type="varchar" MaxLength="5" />
           <Property Name="full_name" Type="varchar" MaxLength="511" Nullable="false" />
+          <Property Name="isActive" Type="bit" />
         </EntityType>
         <EntityType Name="members">
           <Key>
@@ -484,6 +485,54 @@ warning 6002: The table/view 'TrainingIleanaR.dbo.persons' does not have a prima
           <Property Name="max_local_tax_rate" Type="decimal" Precision="3" Scale="2" />
           <Property Name="updated_at" Type="datetime" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'TrainingIleanaR.dbo.manualInventory' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="manualInventory">
+          <Property Name="Made" Type="nvarchar" MaxLength="50" />
+          <Property Name="Model" Type="nvarchar" MaxLength="50" />
+          <Property Name="PartNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="InitialStock" Type="int" />
+          <Property Name="Counted" Type="int" />
+          <Property Name="RemainingStock" Type="int" />
+          <Property Name="CountedPercent" Type="decimal" Precision="5" Scale="2" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'TrainingIleanaR.dbo.manualInventory_Made' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="manualInventory_Made">
+          <Property Name="Made" Type="nvarchar" MaxLength="50" />
+          <Property Name="InitialStock" Type="int" />
+          <Property Name="Counted_total" Type="int" />
+          <Property Name="RemainingStock_total" Type="int" />
+          <Property Name="CountedPercent_total" Type="decimal" Precision="5" Scale="2" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'TrainingIleanaR.dbo.manualInventory_project' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="manualInventory_project">
+          <Property Name="Project" Type="nvarchar" MaxLength="50" />
+          <Property Name="InitialStock" Type="int" />
+          <Property Name="Counted_total" Type="int" />
+          <Property Name="RemainingStock_total" Type="int" />
+          <Property Name="CountedPercent_total" Type="decimal" Precision="5" Scale="2" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'TrainingIleanaR.dbo.rptManualInventory' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="rptManualInventory">
+          <Property Name="Made" Type="nvarchar" MaxLength="50" />
+          <Property Name="Model" Type="nvarchar" MaxLength="50" />
+          <Property Name="PartNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="InitialStock" Type="int" />
+          <Property Name="ModifiedQuantity_Randomly" Type="int" />
+          <Property Name="RemainingStock" Type="int" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'TrainingIleanaR.dbo.rptManualInventory_quantity_diference_PROJECT' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="rptManualInventory_quantity_diference_PROJECT">
+          <Property Name="Project" Type="nvarchar" MaxLength="50" />
+          <Property Name="InitialStock" Type="int" />
+          <Property Name="ModifiedQuantity" Type="int" />
+          <Property Name="RemainingStock" Type="int" />
+          <Property Name="NumberItemsProject" Type="int" />
+        </EntityType>-->
         <!--Errors Found During Generation:
 warning 6002: The table/view 'TrainingIleanaR.sales.daily_sales' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="daily_sales">
@@ -1572,6 +1621,7 @@ warning 6002: The table/view 'TrainingIleanaR.sales.staff_sales_store_years' doe
           <Property Name="state" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
           <Property Name="zip_code" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
           <Property Name="full_name" Type="String" MaxLength="511" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="isActive" Type="Boolean" />
         </EntityType>
         <EntityType Name="member">
           <Key>
@@ -2521,7 +2571,7 @@ warning 6002: The table/view 'TrainingIleanaR.sales.staff_sales_store_years' doe
             <End Role="product" EntitySet="products" />
           </AssociationSet>
           <FunctionImport Name="dynamic_sql_query1">
-            <Parameter Name="table" Mode="In" Type="String" />
+          <Parameter Name="table" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="filter_sort_data_Result">
@@ -2811,6 +2861,7 @@ warning 6002: The table/view 'TrainingIleanaR.sales.staff_sales_store_years' doe
           <EntitySetMapping Name="customers1">
             <EntityTypeMapping TypeName="TrainingIleanaRModel.customer1">
               <MappingFragment StoreEntitySet="customers">
+                <ScalarProperty Name="isActive" ColumnName="isActive" />
                 <ScalarProperty Name="customer_id" ColumnName="customer_id" />
                 <ScalarProperty Name="first_name" ColumnName="first_name" />
                 <ScalarProperty Name="last_name" ColumnName="last_name" />
