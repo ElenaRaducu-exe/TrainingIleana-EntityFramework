@@ -1,4 +1,4 @@
 <Solution>
-  <Project Path="WebApplication1/WebApplication1.csproj" />
-  <Project Path="WebApplication_EDMX_Project/WebApplication_EDMX_Project.csproj" />
+  <Project Path="WebApplication1/WebApplication1.csproj" Id="428e5837-cb3d-4429-9b6c-5833582aab04" />
+  <Project Path="WebApplication_EDMX_Project/WebApplication_EDMX_Project.csproj" Id="9a976efd-d054-468c-9653-713422b8a985" />
 </Solution>

@@ -33,5 +33,12 @@ namespace WebApplication1.Controllers
 
             return View();
         }
+
+        public ActionResult Customers()
+        {
+            ViewBag.Message = "Your marketing customers page.";
+
+            return View();
+        }
     }
 }
