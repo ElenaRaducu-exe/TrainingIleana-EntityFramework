@@ -11,17 +11,26 @@ namespace WebApplication1
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class customer1
     {
         public int customer_id { get; set; }
+        [Required]
         public string first_name { get; set; }
+        [Required]
         public string last_name { get; set; }
+        [Required]
         public string phone { get; set; }
+        [Required]
         public string email { get; set; }
+        [Required] 
         public string street { get; set; }
+        [Required] 
         public string city { get; set; }
+        [Required] 
         public string state { get; set; }
+        [Required] 
         public string zip_code { get; set; }
         public string full_name { get; set; }
     }
