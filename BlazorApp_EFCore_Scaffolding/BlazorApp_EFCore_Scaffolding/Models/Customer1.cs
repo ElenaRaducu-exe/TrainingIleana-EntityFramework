@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 
 namespace BlazorApp_EFCore_Scaffolding.Models;
-// in ssms => marketing.customers
+
 public partial class Customer1
 {
     public int CustomerId { get; set; }
@@ -24,4 +24,6 @@ public partial class Customer1
     public string? ZipCode { get; set; }
 
     public string FullName { get; set; } = null!;
+
+    public bool? IsActive { get; set; }
 }

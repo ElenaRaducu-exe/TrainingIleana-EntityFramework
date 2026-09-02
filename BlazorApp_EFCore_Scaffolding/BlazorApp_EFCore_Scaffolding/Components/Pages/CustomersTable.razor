@@ -4,11 +4,30 @@
 @using BlazorApp_EFCore_Scaffolding.Data
 @using BlazorApp_EFCore_Scaffolding.Models
 
+@using System.Diagnostics 
+
 <h1>Customers Table</h1>
 
 <div>
     <label>Search State</label>
     <InputText @bind-value="_filterState" @onkeyup="@ApplyFilterOnState" />
+</div>
+
+<button @onclick="BulkUpdateCustomers">Update All - EF Bulk Update</button>
+<button @onclick="ExecuteStoredProcedureUpdateCustomers">Update All - Execute SP</button>
+
+<div>
+    @if (!string.IsNullOrEmpty(_bulkUpdateResultTime))
+    {
+        <p>@_bulkUpdateResultTime</p>
+    }
+</div>
+
+<div>
+    @if (!string.IsNullOrEmpty(_executeSP))
+    {
+        <p>@_executeSP</p>
+    }
 </div>
 
 <table>
@@ -70,6 +89,8 @@
     private List<Customer1> customers = new();
 
     private string _filterState = string.Empty;
+    private string _bulkUpdateResultTime = string.Empty;
+    private string _executeSP = string.Empty;
 
     [Parameter]
     public int? _selectedCustomerUpdate { get; set; } = null;
@@ -143,5 +164,36 @@
                 await HandleStateChanged(); 
             }
         }
+    }
+
+    public async Task BulkUpdateCustomers()
+    {
+        var stopwatch = Stopwatch.StartNew();
+
+        foreach (var customer in customers)
+        {
+            customer.IsActive = false;
+            customer.Email = "updated-" + customer.Email;
+            customer.Street = "number " + customer.Street; 
+        }
+
+        _dbContext.SaveChanges();
+
+        stopwatch.Stop();
+
+        _bulkUpdateResultTime = $"EF Bulk Update time: {stopwatch.ElapsedMilliseconds} ms";
+
+        await HandleStateChanged(); 
+    }
+
+    private void ExecuteStoredProcedureUpdateCustomers()
+    {
+        var stopwatch = Stopwatch.StartNew();
+
+        _dbContext.Database.ExecuteSqlRaw("EXEC dbo.UpdateCustomersBulk");
+
+        stopwatch.Stop();
+
+        _executeSP = $"SP execution time: {stopwatch.ElapsedMilliseconds} ms";
     }
 }

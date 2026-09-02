@@ -122,6 +122,9 @@ public partial class TrainingIleanaRContext : DbContext
 
     public virtual DbSet<User> Users { get; set; }
 
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        => optionsBuilder.UseSqlServer("Name=ConnectionStrings:DefaultConnection");
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Address>(entity =>
@@ -302,13 +305,11 @@ public partial class TrainingIleanaRContext : DbContext
 
             entity.ToTable("customers", "marketing");
 
+            entity.Property(e => e.CustomerId).HasColumnName("customer_id");
             entity.Property(e => e.City)
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("city");
-            entity.Property(e => e.CustomerId)
-                .ValueGeneratedOnAdd()
-                .HasColumnName("customer_id");
             entity.Property(e => e.Email)
                 .HasMaxLength(255)
                 .IsUnicode(false)
@@ -321,6 +322,9 @@ public partial class TrainingIleanaRContext : DbContext
                 .HasMaxLength(511)
                 .IsUnicode(false)
                 .HasColumnName("full_name");
+            entity.Property(e => e.IsActive)
+                .HasDefaultValue(false)
+                .HasColumnName("isActive");
             entity.Property(e => e.LastName)
                 .HasMaxLength(255)
                 .IsUnicode(false)
