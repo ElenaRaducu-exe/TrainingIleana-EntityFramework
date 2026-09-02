@@ -27,7 +27,6 @@
         <EntityTypeShape EntityType="TrainingIleanaRModel.customer1" Width="1.5" PointX="6.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="TrainingIleanaRModel.member" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
         <EntityTypeShape EntityType="TrainingIleanaRModel.project" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="TrainingIleanaRModel.brand" Width="1.5" PointX="19.25" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="TrainingIleanaRModel.category1" Width="1.5" PointX="19.25" PointY="3.125" IsExpanded="true" />
         <EntityTypeShape EntityType="TrainingIleanaRModel.part_prices" Width="1.5" PointX="2.75" PointY="6.75" IsExpanded="true" />
         <EntityTypeShape EntityType="TrainingIleanaRModel.part" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
@@ -70,7 +69,6 @@
         <AssociationConnector Association="TrainingIleanaRModel.FK__OrderStat__order__2FCF1A8A" ManuallyRouted="false" />
         <AssociationConnector Association="TrainingIleanaRModel.FK__Rating__orderID__160F4887" ManuallyRouted="false" />
         <AssociationConnector Association="TrainingIleanaRModel.FK__members__project__49C3F6B7" ManuallyRouted="false" />
-        <AssociationConnector Association="TrainingIleanaRModel.FK__products__brand___33D4B598" ManuallyRouted="false" />
         <AssociationConnector Association="TrainingIleanaRModel.FK__products__catego__32E0915F" ManuallyRouted="false" />
         <AssociationConnector Association="TrainingIleanaRModel.FK__order_ite__produ__3D5E1FD2" ManuallyRouted="false" />
         <AssociationConnector Association="TrainingIleanaRModel.FK__stocks__product___412EB0B6" ManuallyRouted="false" />
@@ -83,6 +81,8 @@
         <AssociationConnector Association="TrainingIleanaRModel.FK__orders__store_id__37A5467C" ManuallyRouted="false" />
         <AssociationConnector Association="TrainingIleanaRModel.FK__staffs__manager___2C3393D0" ManuallyRouted="false" />
         <AssociationConnector Association="TrainingIleanaRModel.FK__staffs__store_id__2B3F6F97" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="TrainingIleanaRModel.brand" Width="1.5" PointX="20.375" PointY="13.875" />
+        <AssociationConnector Association="TrainingIleanaRModel.FK__products__brand___33D4B598" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

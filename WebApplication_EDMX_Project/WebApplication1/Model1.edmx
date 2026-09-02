@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="TrainingIleanaRModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="TrainingIleanaRModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <!--Errors Found During Generation:
 warning 6002: The table/view 'TrainingIleanaR.dbo.invMiniInitialInventory' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="invMiniInitialInventory">
@@ -484,54 +484,6 @@ warning 6002: The table/view 'TrainingIleanaR.dbo.persons' does not have a prima
           <Property Name="max_local_tax_rate" Type="decimal" Precision="3" Scale="2" />
           <Property Name="updated_at" Type="datetime" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6013: The table/view 'TrainingIleanaR.dbo.manualInventory' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="manualInventory">
-          <Property Name="Made" Type="nvarchar" MaxLength="50" />
-          <Property Name="Model" Type="nvarchar" MaxLength="50" />
-          <Property Name="PartNumber" Type="nvarchar" MaxLength="50" />
-          <Property Name="InitialStock" Type="int" />
-          <Property Name="Counted" Type="int" />
-          <Property Name="RemainingStock" Type="int" />
-          <Property Name="CountedPercent" Type="decimal" Precision="5" Scale="2" />
-        </EntityType>-->
-        <!--Errors Found During Generation:
-warning 6013: The table/view 'TrainingIleanaR.dbo.manualInventory_Made' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="manualInventory_Made">
-          <Property Name="Made" Type="nvarchar" MaxLength="50" />
-          <Property Name="InitialStock" Type="int" />
-          <Property Name="Counted_total" Type="int" />
-          <Property Name="RemainingStock_total" Type="int" />
-          <Property Name="CountedPercent_total" Type="decimal" Precision="5" Scale="2" />
-        </EntityType>-->
-        <!--Errors Found During Generation:
-warning 6013: The table/view 'TrainingIleanaR.dbo.manualInventory_project' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="manualInventory_project">
-          <Property Name="Project" Type="nvarchar" MaxLength="50" />
-          <Property Name="InitialStock" Type="int" />
-          <Property Name="Counted_total" Type="int" />
-          <Property Name="RemainingStock_total" Type="int" />
-          <Property Name="CountedPercent_total" Type="decimal" Precision="5" Scale="2" />
-        </EntityType>-->
-        <!--Errors Found During Generation:
-warning 6013: The table/view 'TrainingIleanaR.dbo.rptManualInventory' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="rptManualInventory">
-          <Property Name="Made" Type="nvarchar" MaxLength="50" />
-          <Property Name="Model" Type="nvarchar" MaxLength="50" />
-          <Property Name="PartNumber" Type="nvarchar" MaxLength="50" />
-          <Property Name="InitialStock" Type="int" />
-          <Property Name="ModifiedQuantity_Randomly" Type="int" />
-          <Property Name="RemainingStock" Type="int" />
-        </EntityType>-->
-        <!--Errors Found During Generation:
-warning 6013: The table/view 'TrainingIleanaR.dbo.rptManualInventory_quantity_diference_PROJECT' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="rptManualInventory_quantity_diference_PROJECT">
-          <Property Name="Project" Type="nvarchar" MaxLength="50" />
-          <Property Name="InitialStock" Type="int" />
-          <Property Name="ModifiedQuantity" Type="int" />
-          <Property Name="RemainingStock" Type="int" />
-          <Property Name="NumberItemsProject" Type="int" />
-        </EntityType>-->
         <!--Errors Found During Generation:
 warning 6002: The table/view 'TrainingIleanaR.sales.daily_sales' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="daily_sales">
@@ -1370,8 +1322,7 @@ warning 6002: The table/view 'TrainingIleanaR.sales.staff_sales_store_years' doe
             <End Role="stores" EntitySet="stores" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="TrainingIleanaRModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -1639,14 +1590,6 @@ warning 6002: The table/view 'TrainingIleanaR.sales.staff_sales_store_years' doe
           <Property Name="title" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="members" Relationship="Self.FK__members__project__49C3F6B7" FromRole="projects" ToRole="members" />
         </EntityType>
-        <EntityType Name="brand">
-          <Key>
-            <PropertyRef Name="brand_id" />
-          </Key>
-          <Property Name="brand_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="brand_name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="products" Relationship="Self.FK__products__brand___33D4B598" FromRole="brands" ToRole="products" />
-        </EntityType>
         <EntityType Name="category1">
           <Key>
             <PropertyRef Name="category_id" />
@@ -1681,10 +1624,10 @@ warning 6002: The table/view 'TrainingIleanaR.sales.staff_sales_store_years' doe
           <Property Name="category_id" Type="Int32" Nullable="false" />
           <Property Name="model_year" Type="Int16" Nullable="false" />
           <Property Name="list_price" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
-          <NavigationProperty Name="brand" Relationship="Self.FK__products__brand___33D4B598" FromRole="products" ToRole="brands" />
           <NavigationProperty Name="category" Relationship="Self.FK__products__catego__32E0915F" FromRole="products" ToRole="categories" />
           <NavigationProperty Name="order_items" Relationship="Self.FK__order_ite__produ__3D5E1FD2" FromRole="products" ToRole="order_items" />
           <NavigationProperty Name="stocks" Relationship="Self.FK__stocks__product___412EB0B6" FromRole="products" ToRole="stocks" />
+          <NavigationProperty Name="brand" Relationship="TrainingIleanaRModel.FK__products__brand___33D4B598" FromRole="product" ToRole="brand" />
         </EntityType>
         <EntityType Name="stock">
           <Key>
@@ -2177,20 +2120,6 @@ warning 6002: The table/view 'TrainingIleanaR.sales.staff_sales_store_years' doe
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__products__brand___33D4B598">
-          <End Role="brands" Type="Self.brand" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="products" Type="Self.product" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="brands">
-              <PropertyRef Name="brand_id" />
-            </Principal>
-            <Dependent Role="products">
-              <PropertyRef Name="brand_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__products__catego__32E0915F">
           <End Role="categories" Type="Self.category1" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -2374,7 +2303,6 @@ warning 6002: The table/view 'TrainingIleanaR.sales.staff_sales_store_years' doe
           <EntitySet Name="customers1" EntityType="Self.customer1" />
           <EntitySet Name="members" EntityType="Self.member" />
           <EntitySet Name="projects" EntityType="Self.project" />
-          <EntitySet Name="brands" EntityType="Self.brand" />
           <EntitySet Name="categories1" EntityType="Self.category1" />
           <EntitySet Name="part_prices" EntityType="Self.part_prices" />
           <EntitySet Name="parts" EntityType="Self.part" />
@@ -2468,10 +2396,6 @@ warning 6002: The table/view 'TrainingIleanaR.sales.staff_sales_store_years' doe
             <End Role="projects" EntitySet="projects" />
             <End Role="members" EntitySet="members" />
           </AssociationSet>
-          <AssociationSet Name="FK__products__brand___33D4B598" Association="Self.FK__products__brand___33D4B598">
-            <End Role="brands" EntitySet="brands" />
-            <End Role="products" EntitySet="products" />
-          </AssociationSet>
           <AssociationSet Name="FK__products__catego__32E0915F" Association="Self.FK__products__catego__32E0915F">
             <End Role="categories" EntitySet="categories1" />
             <End Role="products" EntitySet="products" />
@@ -2521,7 +2445,7 @@ warning 6002: The table/view 'TrainingIleanaR.sales.staff_sales_store_years' doe
             <End Role="staffs" EntitySet="staffs" />
           </AssociationSet>
           <FunctionImport Name="dynamic_sql_query">
-            <Parameter Name="table" Mode="In" Type="String" />
+          <Parameter Name="table" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="filter_sort_data" ReturnType="Collection(TrainingIleanaRModel.filter_sort_data_Result)">
             <Parameter Name="Warehouse" Mode="In" Type="String" />
@@ -2560,10 +2484,10 @@ warning 6002: The table/view 'TrainingIleanaR.sales.staff_sales_store_years' doe
             <Parameter Name="PageSize_proc" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="getProductList">
-            <Parameter Name="model_year" Mode="In" Type="Int16" />
+          <Parameter Name="model_year" Mode="In" Type="Int16" />
           </FunctionImport>
           <FunctionImport Name="GetUserProfile" ReturnType="Collection(TrainingIleanaRModel.GetUserProfile_Result)">
-            <Parameter Name="UserId" Mode="In" Type="Int32" />
+          <Parameter Name="UserId" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="insertData_Approach2_TVP" />
           <FunctionImport Name="query_topN_rows">
@@ -2591,6 +2515,14 @@ warning 6002: The table/view 'TrainingIleanaR.sales.staff_sales_store_years' doe
             <Parameter Name="SortDirection" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="uspProductList" ReturnType="Collection(TrainingIleanaRModel.uspProductList_Result)" />
+          <EntitySet Name="brands" EntityType="TrainingIleanaRModel.brand" />
+          <AssociationSet Name="FK__products__brand___33D4B598" Association="TrainingIleanaRModel.FK__products__brand___33D4B598">
+            <End Role="brand" EntitySet="brands" />
+            <End Role="product" EntitySet="products" />
+          </AssociationSet>
+          <FunctionImport Name="dynamic_sql_query1">
+            <Parameter Name="table" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="filter_sort_data_Result">
           <Property Type="String" Name="Warehouse" Nullable="true" MaxLength="50" />
@@ -2631,6 +2563,28 @@ warning 6002: The table/view 'TrainingIleanaR.sales.staff_sales_store_years' doe
           <Property Type="Int32" Name="number_products" Nullable="true" />
           <Property Type="Decimal" Name="total" Nullable="true" Precision="38" Scale="2" />
         </ComplexType>
+        <EntityType Name="brand">
+          <Key>
+            <PropertyRef Name="brand_id" />
+          </Key>
+          <Property Name="brand_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="brand_name" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="products" Relationship="TrainingIleanaRModel.FK__products__brand___33D4B598" FromRole="brand" ToRole="product" />
+        </EntityType>
+        <Association Name="FK__products__brand___33D4B598">
+          <End Type="TrainingIleanaRModel.brand" Role="brand" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="TrainingIleanaRModel.product" Role="product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="brand">
+              <PropertyRef Name="brand_id" />
+            </Principal>
+            <Dependent Role="product">
+              <PropertyRef Name="brand_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2884,14 +2838,6 @@ warning 6002: The table/view 'TrainingIleanaR.sales.staff_sales_store_years' doe
               <MappingFragment StoreEntitySet="projects">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="title" ColumnName="title" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="brands">
-            <EntityTypeMapping TypeName="TrainingIleanaRModel.brand">
-              <MappingFragment StoreEntitySet="brands">
-                <ScalarProperty Name="brand_id" ColumnName="brand_id" />
-                <ScalarProperty Name="brand_name" ColumnName="brand_name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -3192,7 +3138,6 @@ warning 6002: The table/view 'TrainingIleanaR.sales.staff_sales_store_years' doe
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="dynamic_sql_query" FunctionName="TrainingIleanaRModel.Store.dynamic_sql_query" />
           <FunctionImportMapping FunctionImportName="filter_sort_data" FunctionName="TrainingIleanaRModel.Store.filter_sort_data">
             <ResultMapping>
               <ComplexTypeMapping TypeName="TrainingIleanaRModel.filter_sort_data_Result">
@@ -3266,6 +3211,15 @@ warning 6002: The table/view 'TrainingIleanaR.sales.staff_sales_store_years' doe
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="brands">
+            <EntityTypeMapping TypeName="TrainingIleanaRModel.brand">
+              <MappingFragment StoreEntitySet="brands">
+                <ScalarProperty Name="brand_name" ColumnName="brand_name" />
+                <ScalarProperty Name="brand_id" ColumnName="brand_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="dynamic_sql_query1" FunctionName="TrainingIleanaRModel.Store.dynamic_sql_query" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

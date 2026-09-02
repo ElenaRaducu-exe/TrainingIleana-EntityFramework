@@ -49,7 +49,6 @@ namespace WebApplication1
         public virtual DbSet<customer1> customers1 { get; set; }
         public virtual DbSet<member> members { get; set; }
         public virtual DbSet<project> projects { get; set; }
-        public virtual DbSet<brand> brands { get; set; }
         public virtual DbSet<category1> categories1 { get; set; }
         public virtual DbSet<part_prices> part_prices { get; set; }
         public virtual DbSet<part> parts { get; set; }
@@ -75,6 +74,7 @@ namespace WebApplication1
         public virtual DbSet<staff_sales> staff_sales { get; set; }
         public virtual DbSet<staff_sales_store> staff_sales_store { get; set; }
         public virtual DbSet<staff_sales_store_years> staff_sales_store_years { get; set; }
+        public virtual DbSet<brand> brands { get; set; }
     
         public virtual int dynamic_sql_query(string table)
         {
@@ -308,6 +308,15 @@ namespace WebApplication1
         public virtual ObjectResult<uspProductList_Result> uspProductList()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<uspProductList_Result>("uspProductList");
+        }
+    
+        public virtual int dynamic_sql_query1(string table)
+        {
+            var tableParameter = table != null ?
+                new ObjectParameter("table", table) :
+                new ObjectParameter("table", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("dynamic_sql_query1", tableParameter);
         }
     }
 }
