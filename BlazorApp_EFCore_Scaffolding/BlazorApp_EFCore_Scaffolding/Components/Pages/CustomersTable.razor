@@ -186,7 +186,7 @@
         await HandleStateChanged(); 
     }
 
-    private void ExecuteStoredProcedureUpdateCustomers()
+    private async Task ExecuteStoredProcedureUpdateCustomers()
     {
         var stopwatch = Stopwatch.StartNew();
 
@@ -195,5 +195,7 @@
         stopwatch.Stop();
 
         _executeSP = $"SP execution time: {stopwatch.ElapsedMilliseconds} ms";
+
+        await HandleStateChanged();
     }
 }
